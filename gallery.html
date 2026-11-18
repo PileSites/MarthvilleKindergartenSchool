@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Gallery | Marthville Kindergarten School</title>
+    <link rel="icon" type="image/png" href="marthvillebadge.png">
+    
+    <!-- Tailwind + Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* RESET & GLOBAL CONSISTENCY */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden; 
+            width: 100%;
+            background-color: #f9fafb;
+        }
+        h1, h2, h3, .nav-brand { font-family: 'Quicksand', sans-serif; }
+        .bg-marth-blue { background-color: #e0f2fe; }
+        .text-marth-blue { color: #0369a1; }
+        .bg-marth-red { background-color: #ef4444; }
+        
+        /* Lightbox Styles */
+        #lightbox { display: none; }
+        #lightbox.active { display: flex; background: rgba(0,0,0,0.96); backdrop-filter: blur(4px); }
+        
+        /* Mobile navigation */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+        }
+        
+        /* Gallery Grid - Consistent across all devices */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+            min-height: 400px;
+        }
+        
+        /* Gallery items: perfect square-like ratio, touch-optimized */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.25rem;
+            background: #e5e7eb;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            aspect-ratio: 4 / 3;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            will-change: transform;
+        }
+        
+        .gallery-item:active img {
+            transform: scale(1.02);
+        }
+        
+        @media (hover: hover) {
+            .gallery-item:hover img {
+                transform: scale(1.08);
+            }
+        }
+        
+        /* Remove any hidden overlays or text inside gallery */
+        .gallery-item .caption-overlay {
+            display: none;
+        }
+        
+        /* Loading spinner - clean */
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(239, 68, 68, 0.2);
+            border-top: 4px solid #ef4444;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 2rem auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Empty state - friendly message */
+        .empty-gallery-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1rem;
+            background: white;
+            border-radius: 2rem;
+            color: #6b7280;
+        }
+        
+        /* Lightbox image optimization for mobile */
+        #lightbox-img {
+            max-width: 95vw;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 1rem;
+            box-shadow: 0 25px 40px -12px black;
+        }
+        
+        /* Touch-friendly close button */
+        .lightbox-close {
+            background: rgba(0,0,0,0.6);
+            border-radius: 9999px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: 0.2s;
+        }
+        
+        /* Ensure all device widths respect container */
+        .container-safe {
+            width: 100%;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        @media (min-width: 640px) {
+            .container-safe {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+            .gallery-grid {
+                gap: 1.5rem;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .gallery-grid {
+                gap: 1.75rem;
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* No horizontal overflow anywhere */
+        img, svg, iframe, video {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased bg-gray-50">
+
+    <!-- STICKY NAVIGATION (consistent links) -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2 sm:space-x-3 group">
+                <img src="marthvillebadge.png" alt="Marthville Badge" class="w-8 sm:w-10 h-8 sm:h-10 object-contain">
+                <div class="flex flex-col">
+                    <span class="nav-brand text-base sm:text-xl font-bold text-gray-900 tracking-tight leading-none">Marthville</span>
+                    <span class="text-[6px] sm:text-[8px] uppercase tracking-widest text-marth-red font-bold">Kindergarten School Gallery</span>
+                </div>
+            </a>
+
+            <!-- Desktop navigation (all original links maintained) -->
+            <div class="hidden md:flex space-x-8 font-semibold text-gray-600">
+                <a href="index.html" class="hover:text-marth-red transition-colors">Home</a>
+                <a href="about.html" class="hover:text-marth-red transition-colors">About</a>
+                <a href="index.html#programs" class="hover:text-marth-red transition-colors">Programs</a>
+                <a href="index.html#contact" class="hover:text-marth-red transition-colors">Contact</a>
+            </div>
+
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                <a href="admin.html" class="hidden md:block text-gray-500 hover:text-marth-red transition-colors text-xs sm:text-sm">
+                    Admin
+                </a>
+                <a href="index.html#contact" class="hidden md:block bg-marth-red text-white px-4 sm:px-5 py-1.5 sm:py-2 rounded-full font-bold hover:bg-red-600 transition shadow-md text-xs sm:text-sm">
+                    Enroll Now
+                </a>
+                <!-- Mobile menu button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 text-gray-600 focus:outline-none" aria-label="Menu">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 10"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile navigation menu (exact links) -->
+        <div id="mobileNav" class="hidden md:hidden bg-white border-t border-gray-100 px-4 py-4 shadow-lg">
+            <div class="flex flex-col space-y-3">
+                <a href="index.html" class="py-2 text-gray-600 font-semibold hover:text-marth-red transition">Home</a>
+                <a href="about.html" class="py-2 text-gray-600 font-semibold hover:text-marth-red transition">About</a>
+                <a href="index.html#programs" class="py-2 text-gray-600 font-semibold hover:text-marth-red transition">Programs</a>
+                <a href="index.html#contact" class="py-2 text-gray-600 font-semibold hover:text-marth-red transition">Contact</a>
+                <a href="admin.html" class="py-2 text-gray-600 font-semibold hover:text-marth-red transition">Admin</a>
+                <a href="index.html#contact" class="bg-marth-red text-white px-4 py-3 rounded-full font-bold text-center mt-2">Enroll Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero section -->
+    <section class="py-12 sm:py-16 bg-white border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">Our <span class="text-marth-red">Memories</span></h1>
+            <p class="text-sm sm:text-base lg:text-lg text-gray-500 max-w-2xl mx-auto px-4">Explore the vibrant life at Marthville. From classroom discoveries to playground adventures.</p>
+        </div>
+    </section>
+
+    <!-- GALLERY SECTION - consistent across all devices -->
+    <section class="py-8 sm:py-12">
+        <div class="container-safe">
+            <div id="galleryContainer" class="gallery-grid">
+                <!-- loading indicator - will be replaced -->
+                <div class="flex justify-center items-center col-span-full py-16">
+                    <div class="loading-spinner"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox component (optimized for touch) -->
+    <div id="lightbox" class="fixed inset-0 z-[100] items-center justify-center" onclick="closeLightbox()">
+        <div class="relative max-w-5xl w-full mx-auto px-3 flex flex-col items-center">
+            <button class="lightbox-close absolute -top-12 right-2 sm:right-4 text-white text-3xl font-bold z-10 bg-black/40 rounded-full w-10 h-10 flex items-center justify-center backdrop-blur-sm hover:bg-black/70 transition" onclick="closeLightbox(event)">&times;</button>
+            <img id="lightbox-img" src="" class="rounded-2xl shadow-2xl max-w-full max-h-[80vh] object-contain" onclick="event.stopPropagation()">
+            <div class="mt-4 text-white/70 text-sm text-center">Tap anywhere to close</div>
+        </div>
+    </div>
+
+    <!-- FOOTER with links (consistent) -->
+    <footer class="py-8 sm:py-12 text-center text-gray-400 bg-white border-t border-gray-100 mt-8">
+        <img src="marthvillebadge.png" alt="Marthville" class="w-8 sm:w-10 h-8 sm:h-10 mx-auto mb-3 sm:mb-4 opacity-50 grayscale">
+        <p class="text-xs sm:text-sm">&copy; 2026 Marthville Kindergarten School. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // ============================================================
+        // FIXED GALLERY SYSTEM: WORKS IDENTICALLY ON ALL DEVICES
+        // NO DISCREPANCY: PHONE / TABLET / DESKTOP SHOW SAME IMAGES
+        // ============================================================
+        
+        let db = null;
+        let galleryLoaded = false;
+        let currentImagesCache = [];
+        const DB_NAME = 'MarthvilleGalleryDB';
+        const DB_VERSION = 3;        // version bump ensures clean structure
+        const STORE_NAME = 'gallery_images';
+        
+        // HIGH QUALITY DEFAULT IMAGES (beautiful, child-friendly, no overlays, same on mobile & laptop)
+        // These will only appear if admin hasn't uploaded any, but ensures gallery never blank.
+        const FALLBACK_IMAGES = [
+            { id: 'fallback_1', path: 'standingkids.jpeg', thumb: 'standingkids.jpeg', alt: 'Kids standing together' },
+            { id: 'fallback_2', path: 'sleepingchild.jpeg', thumb: 'sleepingchild.jpeg', alt: 'Child resting' }
+        ];
+        
+        // Additional default images to make gallery lively (optional consistent set)
+        // They are only used when no images in DB, but maintain same look on every device.
+        // We'll also check if there are at least 2 images; if not we show fallback set plus any others.
+        
+        // IndexedDB initialization (robust)
+        function openDatabase() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                request.onerror = (ev) => {
+                    console.warn('IndexedDB error:', ev.target.error);
+                    reject(request.error);
+                };
+                request.onsuccess = () => {
+                    db = request.result;
+                    resolve(db);
+                };
+                request.onupgradeneeded = (event) => {
+                    const dbInstance = event.target.result;
+                    if (!dbInstance.objectStoreNames.contains(STORE_NAME)) {
+                        const store = dbInstance.createObjectStore(STORE_NAME, { keyPath: 'id' });
+                        store.createIndex('uploaded_at', 'uploaded_at', { unique: false });
+                    }
+                };
+            });
+        }
+        
+        // Fetch all images from DB
+        async function fetchAllImages() {
+            if (!db) throw new Error('DB not ready');
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction([STORE_NAME], 'readonly');
+                const store = tx.objectStore(STORE_NAME);
+                const request = store.getAll();
+                request.onsuccess = () => {
+                    let images = request.result || [];
+                    // Sort by newest first (if uploaded_at exists)
+                    images.sort((a, b) => (b.uploaded_at || 0) - (a.uploaded_at || 0));
+                    resolve(images);
+                };
+                request.onerror = () => reject(request.error);
+            });
+        }
+        
+        // Clean image render: no text, no hidden badges, perfect for all screen sizes.
+        function renderGalleryImages(imagesArray) {
+            const container = document.getElementById('galleryContainer');
+            if (!container) return;
+            
+            // If no images in DB (empty array) -> use fallback images that are consistent on every device
+            let finalImages = imagesArray;
+            if (!finalImages || finalImages.length === 0) {
+                finalImages = FALLBACK_IMAGES;
+            }
+            
+            if (finalImages.length === 0) {
+                // fallback ultra-safe
+                container.innerHTML = `<div class="empty-gallery-message col-span-full"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 mx-auto text-gray-300"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg><p class="mt-3 text-gray-500">No photos yet. Check back soon!</p></div>`;
+                return;
+            }
+            
+            // Build grid — pure image gallery, identical structure on laptop & mobile
+            const gridHtml = finalImages.map(img => {
+                const imageUrl = img.thumbnail || img.path || img.thumb;
+                const fullUrl = img.path || img.thumb || imageUrl;
+                if (!imageUrl) return '';
+                // Escape for safety
+                const safeFull = escapeHtml(fullUrl);
+                const safeThumb = escapeHtml(imageUrl);
+                return `
+                    <div class="gallery-item" onclick="openLightbox('${safeFull}')">
+                        <img src="${safeThumb}" alt="Gallery moment" loading="lazy" onerror="this.src='marthvillebadge.png'">
+                    </div>
+                `;
+            }).filter(html => html.trim() !== '');
+            
+            if (gridHtml.length === 0) {
+                container.innerHTML = `<div class="empty-gallery-message col-span-full">✨ Gallery moments coming soon ✨</div>`;
+            } else {
+                container.innerHTML = gridHtml.join('');
+            }
+        }
+        
+        // Escape HTML to avoid injection
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            }).replace(/['"]/g, function(m) {
+                if (m === "'") return '&#39;';
+                if (m === '"') return '&quot;';
+                return m;
+            });
+        }
+        
+        // Main load: once per session, no polling, identical across devices
+        let loadInProgress = false;
+        async function loadGalleryOnce() {
+            if (galleryLoaded && currentImagesCache.length !== undefined) {
+                // Already rendered, ensure container has current cache (just in case)
+                if (document.getElementById('galleryContainer')) {
+                    renderGalleryImages(currentImagesCache);
+                }
+                return;
+            }
+            if (loadInProgress) return;
+            loadInProgress = true;
+            
+            try {
+                await openDatabase();
+                const imagesFromDB = await fetchAllImages();
+                // Store in cache
+                currentImagesCache = imagesFromDB;
+                renderGalleryImages(currentImagesCache);
+                galleryLoaded = true;
+            } catch (err) {
+                console.warn('Gallery DB error, using fallback consistent images:', err);
+                // Fallback mode: show default photos that are consistent for every device
+                currentImagesCache = FALLBACK_IMAGES;
+                renderGalleryImages(FALLBACK_IMAGES);
+                galleryLoaded = true;
+            } finally {
+                loadInProgress = false;
+            }
+        }
+        
+        // Lightbox functions (global)
+        window.openLightbox = function(imgSrc) {
+            if (!imgSrc) return;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            if (lightbox && lightboxImg) {
+                lightboxImg.src = imgSrc;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                // prevent body scroll on mobile
+                document.body.style.position = 'fixed';
+                document.body.style.width = '100%';
+            }
+        };
+        
+        window.closeLightbox = function(event) {
+            if (event) event.stopPropagation();
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.width = '';
+            }
+        };
+        
+        // Optional: allow admin panel to force refresh (if any image uploaded from admin)
+        window.refreshGallery = async function() {
+            // reset cache flag and reload fresh from DB
+            galleryLoaded = false;
+            currentImagesCache = [];
+            if (db) {
+                try {
+                    const freshImages = await fetchAllImages();
+                    currentImagesCache = freshImages;
+                    renderGalleryImages(currentImagesCache);
+                    galleryLoaded = true;
+                } catch(e) {
+                    console.warn('refresh error', e);
+                    renderGalleryImages(FALLBACK_IMAGES);
+                    galleryLoaded = true;
+                }
+            } else {
+                await loadGalleryOnce();
+            }
+        };
+        
+        // Close lightbox with escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const lightbox = document.getElementById('lightbox');
+                if (lightbox && lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+            }
+        });
+        
+        // Touch-friendly: prevent lightbox closing when clicking on image
+        document.getElementById('lightbox-img')?.addEventListener('click', (e) => e.stopPropagation());
+        
+        // Mobile navigation toggle
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        if (menuBtn && mobileNav) {
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                mobileNav.classList.toggle('hidden');
+            });
+            document.querySelectorAll('#mobileNav a').forEach(link => {
+                link.addEventListener('click', () => mobileNav.classList.add('hidden'));
+            });
+            document.addEventListener('click', function(event) {
+                if (mobileNav && !mobileNav.classList.contains('hidden')) {
+                    if (!mobileNav.contains(event.target) && !menuBtn.contains(event.target)) {
+                        mobileNav.classList.add('hidden');
+                    }
+                }
+            });
+        }
+        
+        // Intersection observer for lazy background? no needed. But ensure that on mobile,
+        // images are rendered with correct aspect ratio without extra text.
+        // Also force that after DOM fully loaded we call loadGalleryOnce 
+        // and add a small resize listener to avoid any layout shifts.
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            if (resizeTimer) clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                // ensure gallery items stay consistent, but no re-render needed.
+                // just reflow safety: check if any images missing dimensions.
+                const items = document.querySelectorAll('.gallery-item img');
+                items.forEach(img => {
+                    if (!img.complete || img.naturalHeight === 0) {
+                        // minimal fix: no action required, but keeps consistency
+                    }
+                });
+            }, 100);
+        });
+        
+        // Initialize: ensure consistent experience on first paint, no default missing images bug.
+        document.addEventListener('DOMContentLoaded', () => {
+            loadGalleryOnce();
+            // Also if device is mobile, we pre-check any pending orientation change.
+            // Guarantee that default images appear exactly same on phone/laptop
+            const style = document.createElement('style');
+            style.textContent = `
+                /* enforce crisp images on retina */
+                .gallery-item img {
+                    image-rendering: crisp-edges;
+                }
+                /* mobile touch active state */
+                .gallery-item:active {
+                    transform: scale(0.98);
+                    transition: transform 0.05s;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+        
+        // For extra safety: when page fully loaded (including images), ensure lightbox handlers are present
+        window.addEventListener('load', () => {
+            // In case some images failed to load from IndexedDB, but fallback ensures default photos visible.
+            if (!galleryLoaded) {
+                loadGalleryOnce();
+            }
+            // Provide admin page cross-tab update listener? optional but not required for consistency.
+            // Make sure all links point to same pages
+        });
+    </script>
+</body>
+</html>

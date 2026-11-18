@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>About Us | Marthville Kindergarten School - Gulu City</title>
+    <link rel="icon" type="image/png" href="marthvillebadge.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; }
+        h1, h2, h3, .nav-brand { font-family: 'Quicksand', sans-serif; }
+        .bg-marth-blue { background-color: #e0f2fe; }
+        .text-marth-blue { color: #0369a1; }
+        .bg-marth-red { background-color: #ef4444; }
+        
+        /* Animated background elements */
+        .floating-shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+        
+        /* Timeline styles */
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background-color: #ef4444;
+            border: 4px solid rgba(239, 68, 68, 0.2);
+            border-radius: 50%;
+            position: absolute;
+            left: -10px;
+            top: 0;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* Team member hover effect */
+        .team-card {
+            transition: all 0.3s ease;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .team-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .team-card .social-overlay {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .team-card:hover .social-overlay {
+            opacity: 1;
+        }
+        
+        /* Value card styles */
+        .value-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ef4444, #f87171);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .value-card:hover::before {
+            transform: translateX(0);
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 40px -20px rgba(239, 68, 68, 0.3);
+        }
+        
+        /* Director message styling */
+        .director-quote {
+            font-family: 'Quicksand', sans-serif;
+            font-style: italic;
+            position: relative;
+        }
+        
+        .director-quote::before {
+            content: '"';
+            font-size: 8rem;
+            color: #ef4444;
+            opacity: 0.1;
+            position: absolute;
+            top: -3rem;
+            left: -2rem;
+            font-family: serif;
+        }
+        
+        @media (max-width: 768px) {
+            .director-quote::before {
+                font-size: 4rem;
+                top: -1rem;
+                left: -0.5rem;
+            }
+        }
+        
+        /* Class card styling */
+        .class-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .class-card::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(239,68,68,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .class-card:hover::after {
+            opacity: 1;
+        }
+        
+        .class-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+        
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Section transitions */
+        .section-fade {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        
+        .section-fade.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Stats counter */
+        .stat-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        
+        .stat-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #ef4444;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #dc2626;
+        }
+        
+        /* Mobile fixes */
+        @media (max-width: 768px) {
+            .mobile-stack {
+                flex-direction: column;
+            }
+            .mobile-text-center {
+                text-align: center;
+            }
+            .mobile-px-4 {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .mobile-mt-4 {
+                margin-top: 1rem;
+            }
+            .mobile-mb-4 {
+                margin-bottom: 1rem;
+            }
+            .mobile-w-full {
+                width: 100%;
+            }
+        }
+        
+        /* Touch-friendly buttons */
+        button, a { -webkit-tap-highlight-color: transparent; }
+        
+        /* Better form inputs on mobile */
+        input, textarea, select { font-size: 16px !important; }
+        
+        /* Prevent horizontal scroll */
+        html, body { overflow-x: hidden; width: 100%; }
+        * { max-width: 100%; box-sizing: border-box; }
+        
+        /* === FIX: Images in message section perfectly fit their frames === */
+        .director-quote img,
+        .relative.z-10.group img,
+        .team-card .relative.overflow-hidden img,
+        .team-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .relative.z-10.group {
+            display: block;
+        }
+        .relative.z-10.group .absolute.inset-0 {
+            pointer-events: none;
+        }
+        .team-card .relative.overflow-hidden {
+            display: block;
+            line-height: 0;
+        }
+
+        /* === FINAL FIX: Stakeholder message images fill their frame perfectly === */
+        .stakeholder-image-frame {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .stakeholder-image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .stakeholder-image-frame:hover img {
+            transform: scale(1.02);
+        }
+        @media (min-width: 640px) {
+            .stakeholder-image-frame { height: 500px; }
+        }
+        @media (min-width: 1024px) {
+            .stakeholder-image-frame { height: 550px; }
+        }
+        @media (max-width: 480px) {
+            .stakeholder-image-frame { height: 350px; }
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased bg-gray-50 overflow-x-hidden">
+
+    <!-- Floating decorative shapes - adjusted for mobile -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+        <div class="floating-shape w-32 sm:w-64 h-32 sm:h-64 bg-red-200 rounded-full -top-20 -left-20"></div>
+        <div class="floating-shape w-48 sm:w-96 h-48 sm:h-96 bg-blue-200 rounded-full -bottom-40 -right-20" style="animation-delay: -5s;"></div>
+        <div class="floating-shape w-32 sm:w-48 h-32 sm:h-48 bg-yellow-200 rounded-full top-1/2 left-1/2" style="animation-delay: -10s;"></div>
+    </div>
+
+    <!-- Navigation with mobile menu -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-gray-100 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2 sm:space-x-3 group">
+                <div class="relative">
+                    <img src="marthvillebadge.png" alt="Marthville Badge" class="w-8 sm:w-10 h-8 sm:h-10 object-contain transform group-hover:rotate-12 transition duration-300">
+                    <div class="absolute inset-0 bg-marth-red rounded-full opacity-0 group-hover:opacity-20 blur-xl transition"></div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="nav-brand text-base sm:text-xl font-bold text-gray-900 tracking-tight leading-none">Marthville</span>
+                    <span class="text-[6px] sm:text-[8px] uppercase tracking-widest text-marth-red font-bold">Kindergarten School</span>
+                </div>
+            </a>
+
+            <!-- Desktop navigation -->
+            <div class="hidden md:flex space-x-8 font-semibold text-gray-600">
+                <a href="index.html" class="hover:text-marth-red transition-colors relative group">
+                    Home
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-marth-red group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="about.html" class="text-marth-red relative group">
+                    About
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-marth-red"></span>
+                </a>
+                <a href="#classes" class="hover:text-marth-red transition-colors relative group">
+                    Classes
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-marth-red group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="gallery.html" class="hover:text-marth-red transition-colors relative group">
+                    Gallery
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-marth-red group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="#contact" class="hover:text-marth-red transition-colors relative group">
+                    Contact
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-marth-red group-hover:w-full transition-all duration-300"></span>
+                </a>
+            </div>
+
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                <a href="#contact" class="hidden md:block bg-marth-red text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-bold hover:bg-red-600 transition-all shadow-md hover:shadow-xl text-xs sm:text-sm transform hover:-translate-y-0.5">
+                    Enroll Now
+                </a>
+                <!-- Mobile menu button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 text-gray-600 focus:outline-none" aria-label="Menu">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile navigation menu -->
+        <div id="mobileNav" class="hidden md:hidden bg-white border-t border-gray-100 px-4 py-4">
+            <div class="flex flex-col space-y-3">
+                <a href="index.html" class="py-2 text-gray-600 font-semibold hover:text-marth-red transition">Home</a>
+                <a href="about.html" class="py-2 text-marth-red font-semibold">About</a>
+                <a href="#classes" class="py-2 text-gray-600 font-semibold hover:text-marth-red transition">Classes</a>
+                <a href="gallery.html" class="py-2 text-gray-600 font-semibold hover:text-marth-red transition">Gallery</a>
+                <a href="#contact" class="py-2 text-gray-600 font-semibold hover:text-marth-red transition">Contact</a>
+                <a href="#contact" class="bg-marth-red text-white px-4 py-3 rounded-full font-bold text-center mt-2">Enroll Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile menu toggle script -->
+    <script>
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        
+        menuBtn?.addEventListener('click', () => {
+            mobileNav?.classList.toggle('hidden');
+        });
+        
+        // Close menu when clicking a link
+        document.querySelectorAll('#mobileNav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav?.classList.add('hidden');
+            });
+        });
+        
+        // Close when clicking outside
+        document.addEventListener('click', function(event) {
+            if (mobileNav && !mobileNav.classList.contains('hidden')) {
+                if (!mobileNav.contains(event.target) && !menuBtn?.contains(event.target)) {
+                    mobileNav.classList.add('hidden');
+                }
+            }
+        });
+    </script>
+
+    <!-- Hero Section with Parallax effect -->
+  <section
+    class="relative py-16 sm:py-20 lg:py-28 overflow-hidden bg-cover bg-center bg-no-repeat"
+    style="background-image: url('herobg.png');"
+>
+    <!-- optional soft overlay for readability -->
+    <div class="absolute inset-0 bg-white/70"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center relative z-10">
+        <div class="inline-flex items-center space-x-2 bg-marth-red/10 text-marth-red px-4 sm:px-6 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold mb-6 sm:mb-8 backdrop-blur-sm border border-marth-red/20">
+            <span class="relative flex h-2 sm:h-3 w-2 sm:w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-marth-red opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 sm:h-3 w-2 sm:w-3 bg-marth-red"></span>
+            </span>
+            <span>WELCOME TO MARTHVILLE KINDERGARTEN SCHOOL</span>
+        </div>
+        
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight px-2">
+            Little Steps, 
+            <span class="gradient-text">Big Dreams</span>
+        </h1>
+        
+        <p class="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto mb-8 sm:mb-10 leading-relaxed px-4">
+            A nurturing early-learning community in Gulu City where curiosity is celebrated, creativity is encouraged, and every child's potential is lovingly supported.
+        </p>
+        
+        <!-- Contact Info Cards - Stack on mobile -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 max-w-4xl mx-auto px-2">
+            <div class="bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-lg border border-gray-100 flex items-center space-x-2 sm:space-x-3 transform hover:scale-105 transition">
+                <div class="w-8 sm:w-10 h-8 sm:h-10 bg-marth-red/10 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg class="w-4 sm:w-5 h-4 sm:h-5 text-marth-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </div>
+                <span class="text-xs sm:text-sm text-gray-600 text-left">Plot 10 Ogwal Abwang Road, Laroo-Pece Division, Gulu City</span>
+            </div>
+
+            <div class="bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-lg border border-gray-100 flex items-center space-x-2 sm:space-x-3 transform hover:scale-105 transition">
+                <div class="w-8 sm:w-10 h-8 sm:h-10 bg-marth-red/10 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg class="w-4 sm:w-5 h-4 sm:h-5 text-marth-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <span class="text-xs sm:text-sm text-gray-600 break-all">marthvillesch@gmail.com</span>
+            </div>
+
+            <div class="bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-lg border border-gray-100 flex items-center space-x-2 sm:space-x-3 transform hover:scale-105 transition sm:col-span-2 lg:col-span-1">
+                <div class="w-8 sm:w-10 h-8 sm:h-10 bg-marth-red/10 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg class="w-4 sm:w-5 h-4 sm:h-5 text-marth-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                    </svg>
+                </div>
+                <div class="flex flex-col text-xs sm:text-sm">
+                    <span class="text-gray-600">0784718182</span>
+                    <span class="text-gray-400 text-2xs sm:text-xs">0772428569 / 0792761281</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Director's Message Section with enhanced layout -->
+    <section class="py-16 sm:py-20 lg:py-24 bg-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-48 sm:w-64 lg:w-96 h-48 sm:h-64 lg:h-96 bg-gradient-to-bl from-marth-red/5 to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-48 sm:w-64 lg:w-96 h-48 sm:h-64 lg:h-96 bg-gradient-to-tr from-blue-500/5 to-transparent rounded-full blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 relative">
+            <div class="text-center mb-10 sm:mb-12 lg:mb-16">
+                <span class="inline-block px-4 sm:px-6 py-1.5 sm:py-2 bg-gradient-to-r from-marth-red/10 to-transparent text-marth-red rounded-full text-xs sm:text-sm font-bold mb-3 sm:mb-4 border border-marth-red/20">FROM THE DIRECTOR'S DESK</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 sm:mb-4">A Personal <span class="gradient-text">Welcome</span></h2>
+                <div class="w-16 sm:w-20 lg:w-24 h-1 bg-gradient-to-r from-marth-red to-transparent mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
+                <!-- Director Image with decorative elements -->
+                <div class="relative px-4 sm:px-0">
+                    <div class="absolute -top-4 sm:-top-6 -left-4 sm:-left-6 w-16 sm:w-20 lg:w-32 h-16 sm:h-20 lg:h-32 bg-marth-red/10 rounded-full blur-2xl"></div>
+                    <div class="absolute -bottom-4 sm:-bottom-6 -right-4 sm:-right-6 w-16 sm:w-20 lg:w-32 h-16 sm:h-20 lg:h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
+                    
+                    <div class="relative z-10 group">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-marth-red/20 to-transparent rounded-2xl sm:rounded-3xl transform group-hover:scale-105 transition duration-500"></div>
+                        <div class="stakeholder-image-frame">
+                            <img src="marthvilledirector.png" 
+                                 alt="Nancy Abalo Opiyo - Director of Marthville Kindergarten">
+                        </div>
+                        
+                        <!-- Floating badges - adjusted for mobile -->
+                        <div class="absolute -bottom-2 sm:-bottom-4 -right-2 sm:-right-4 bg-gradient-to-r from-marth-red to-red-500 text-white px-3 sm:px-6 lg:px-8 py-1.5 sm:py-2 lg:py-4 rounded-full shadow-2xl transform hover:scale-110 transition">
+                            <span class="font-bold text-xs sm:text-sm lg:text-lg">Director</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Director Message with signature styling -->
+                <div class="director-quote relative px-4 sm:px-0">
+                    <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-1 sm:mb-2">Nancy Abalo Opiyo</h3>
+                    <p class="text-marth-red font-semibold mb-4 sm:mb-6 lg:mb-8 text-base sm:text-lg lg:text-xl border-b border-gray-200 pb-2 sm:pb-4 inline-block">Founder & Director</p>
+                    
+                    <div class="space-y-3 sm:space-y-4 lg:space-y-6 text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed">
+                        <p class="font-medium text-gray-800">
+                            Dear Families,
+                        </p>
+                        <p>
+It is with profound joy and a heart full of hope that I welcome you to Marthville Kindergarten School.  As a parent and an educator at heart, I have always believed that the earliest years of a child's life are nothing short of magical—filled with wonder, possibility, and the foundations of who they will become. It is this deep belief that inspired me to create Marthville: a warm, nurturing community where every child is seen, cherished, and encouraged to blossom.
+
+At Marthville, we are not only preparing children for primary school; we are helping shape confident, compassionate, curious young minds ready to embrace the world. Through a thoughtful blend of play-based exploration and structured early childhood development, we create an environment where learning feels natural, joyful, and empowering—allowing each child to grow at their own unique pace.
+
+I warmly invite you to become part of the Marthville family—a place where every child matters, every voice is celebrated, and every day holds a new adventure. Together, let us build a beautiful beginning for your child's journey.
+                        </p>
+                    </div>
+                    
+                    <!-- Signature with elegant styling -->
+                    <div class="mt-6 sm:mt-8 lg:mt-10 pt-4 sm:pt-6 border-t border-gray-200 bg-gradient-to-r from-gray-50 to-transparent p-4 sm:p-6 rounded-xl sm:rounded-2xl">
+                        <p class="font-serif text-gray-700 mb-2 sm:mb-4 text-sm sm:text-base">With warm regards,</p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+                            <div>
+                                <p class="text-lg sm:text-xl lg:text-2xl font-bold text-marth-red">Nancy Abalo Opiyo</p>
+                                <p class="text-xs sm:text-sm text-gray-500">Founder & Director</p>
+                            </div>
+                            <div class="text-left sm:text-right">
+                                <div class="flex space-x-1 mt-1">
+                                    <span class="w-6 sm:w-8 h-1 bg-marth-red rounded-full"></span>
+                                    <span class="w-6 sm:w-8 h-1 bg-marth-red/50 rounded-full"></span>
+                                    <span class="w-6 sm:w-8 h-1 bg-marth-red/30 rounded-full"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SMC CHAIRMAN SECTION -->
+            <div class="mt-20">
+                <div class="text-center mb-10 sm:mb-12 lg:mb-16">
+                    <span class="inline-block px-4 sm:px-6 py-1.5 sm:py-2 bg-gradient-to-r from-marth-red/10 to-transparent text-marth-red rounded-full text-xs sm:text-sm font-bold mb-3 sm:mb-4 border border-marth-red/20">FROM THE SMC CHAIRMAN</span>
+                    <div class="w-16 sm:w-20 lg:w-24 h-1 bg-gradient-to-r from-marth-red to-transparent mx-auto"></div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
+                    <div class="relative px-4 sm:px-0">
+                        <div class="absolute -top-4 sm:-top-6 -left-4 sm:-left-6 w-16 sm:w-20 lg:w-32 h-16 sm:h-20 lg:h-32 bg-marth-red/10 rounded-full blur-2xl"></div>
+                        <div class="absolute -bottom-4 sm:-bottom-6 -right-4 sm:-right-6 w-16 sm:w-20 lg:w-32 h-16 sm:h-20 lg:h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
+                        
+                        <div class="relative z-10 group">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-marth-red/20 to-transparent rounded-2xl sm:rounded-3xl transform group-hover:scale-105 transition duration-500"></div>
+                            <div class="stakeholder-image-frame">
+                                <img src="chair.jpeg" alt="SMC chairman">
+                            </div>
+                            
+                            <div class="absolute -bottom-2 sm:-bottom-4 -right-2 sm:-right-4 bg-gradient-to-r from-marth-red to-red-500 text-white px-3 sm:px-6 lg:px-8 py-1.5 sm:py-2 lg:py-4 rounded-full shadow-2xl transform hover:scale-110 transition">
+                                <span class="font-bold text-xs sm:text-sm lg:text-lg">SMC Chairman</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="director-quote relative px-4 sm:px-0">
+                        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-1 sm:mb-2">Kilama Erick Obwona</h3>
+                        <p class="text-marth-red font-semibold mb-4 sm:mb-6 lg:mb-8 text-base sm:text-lg lg:text-xl border-b border-gray-200 pb-2 sm:pb-4 inline-block">SMC Chairman</p>
+                        
+                        <div class="space-y-3 sm:space-y-4 lg:space-y-6 text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed">
+                            <p class="font-medium text-gray-800">
+                                Dear Families,
+                            </p>
+                            <p>
+As Chairman of the School Management Committee, I am committed to guiding Marthville Kindergarten School in providing a safe, well-managed, and child-friendly environment. We hold every child's learning at the center through effective school systems and engaging instructional approaches, while supporting our teachers and upholding strong child protection policies. As Maria Montessori noted, learning through play creates lasting knowledge, we strive to uphold this in every child's learning experience.
+                            </p>
+                        </div>
+                        
+                        <div class="mt-6 sm:mt-8 lg:mt-10 pt-4 sm:pt-6 border-t border-gray-200 bg-gradient-to-r from-gray-50 to-transparent p-4 sm:p-6 rounded-xl sm:rounded-2xl">
+                            <p class="font-serif text-gray-700 mb-2 sm:mb-4 text-sm sm:text-base">Courtesy of the,</p>
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+                                <div>
+                                    <p class="text-lg sm:text-xl lg:text-2xl font-bold text-marth-red">Kilama Erick Obwona</p>
+                                    <p class="text-xs sm:text-sm text-gray-500">SMC Chairman</p>
+                                </div>
+                                <div class="text-left sm:text-right">
+                                    <div class="flex space-x-1 mt-1">
+                                        <span class="w-6 sm:w-8 h-1 bg-marth-red rounded-full"></span>
+                                        <span class="w-6 sm:w-8 h-1 bg-marth-red/50 rounded-full"></span>
+                                        <span class="w-6 sm:w-8 h-1 bg-marth-red/30 rounded-full"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- HEADTEACHER SECTION -->
+            <div class="mt-20">
+                <div class="text-center mb-10 sm:mb-12 lg:mb-16">
+                    <span class="inline-block px-4 sm:px-6 py-1.5 sm:py-2 bg-gradient-to-r from-marth-red/10 to-transparent text-marth-red rounded-full text-xs sm:text-sm font-bold mb-3 sm:mb-4 border border-marth-red/20">FROM THE HEADTEACHER'S OFFICE</span>
+                    <div class="w-16 sm:w-20 lg:w-24 h-1 bg-gradient-to-r from-marth-red to-transparent mx-auto"></div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
+                    <div class="relative px-4 sm:px-0">
+                        <div class="absolute -top-4 sm:-top-6 -left-4 sm:-left-6 w-16 sm:w-20 lg:w-32 h-16 sm:h-20 lg:h-32 bg-marth-red/10 rounded-full blur-2xl"></div>
+                        <div class="absolute -bottom-4 sm:-bottom-6 -right-4 sm:-right-6 w-16 sm:w-20 lg:w-32 h-16 sm:h-20 lg:h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
+                        
+                        <div class="relative z-10 group">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-marth-red/20 to-transparent rounded-2xl sm:rounded-3xl transform group-hover:scale-105 transition duration-500"></div>
+                            <div class="stakeholder-image-frame">
+                                <img src="headteacher.jpeg" alt="headteacher">
+                            </div>
+                            
+                            <div class="absolute -bottom-2 sm:-bottom-4 -right-2 sm:-right-4 bg-gradient-to-r from-marth-red to-red-500 text-white px-3 sm:px-6 lg:px-8 py-1.5 sm:py-2 lg:py-4 rounded-full shadow-2xl transform hover:scale-110 transition">
+                                <span class="font-bold text-xs sm:text-sm lg:text-lg">Headteacher</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="director-quote relative px-4 sm:px-0">
+                        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-1 sm:mb-2">Adong Proscovia Okello</h3>
+                        <p class="text-marth-red font-semibold mb-4 sm:mb-6 lg:mb-8 text-base sm:text-lg lg:text-xl border-b border-gray-200 pb-2 sm:pb-4 inline-block">The Headteacher</p>
+                        
+                        <div class="space-y-3 sm:space-y-4 lg:space-y-6 text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed">
+                            <p class="font-medium text-gray-800">
+                                Dear Families,
+                            </p>
+                            <p>
+At Marthville Kindergarten School, we believe that every child's learning journey begins with small steps that lead to big dreams. Our caring and dedicated team provides a warm, secure, and nurturing environment where children feel safe to explore, discover, and grow.
+We are committed to holistic child development—supporting each learner's social, emotional, physical, and early academic needs through joyful, play‑based experiences. With strong emphasis on welfare and security, we create a space where children are protected, valued, and encouraged to thrive every day.
+Partnerships with parents are at the heart of what we do. Your trust and involvement strengthen our community and help us guide each child toward becoming confident, curious, and capable young learners.
+At Marthville Kindergarten School, small steps truly lead to big dreams—and we are honoured to walk that journey with you and your child.
+                            </p>
+                        </div>
+                        
+                        <div class="mt-6 sm:mt-8 lg:mt-10 pt-4 sm:pt-6 border-t border-gray-200 bg-gradient-to-r from-gray-50 to-transparent p-4 sm:p-6 rounded-xl sm:rounded-2xl">
+                            <p class="font-serif text-gray-700 mb-2 sm:mb-4 text-sm sm:text-base">Yours,</p>
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+                                <div>
+                                    <p class="text-lg sm:text-xl lg:text-2xl font-bold text-marth-red">Adong Proscovia Okello</p>
+                                    <p class="text-xs sm:text-sm text-gray-500">Headteacher</p>
+                                </div>
+                                <div class="text-left sm:text-right">
+                                    <div class="flex space-x-1 mt-1">
+                                        <span class="w-6 sm:w-8 h-1 bg-marth-red rounded-full"></span>
+                                        <span class="w-6 sm:w-8 h-1 bg-marth-red/50 rounded-full"></span>
+                                        <span class="w-6 sm:w-8 h-1 bg-marth-red/30 rounded-full"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- WELFARE SECTION -->
+            <div class="mt-20">
+                <div class="text-center mb-10 sm:mb-12 lg:mb-16">
+                    <span class="inline-block px-4 sm:px-6 py-1.5 sm:py-2 bg-gradient-to-r from-marth-red/10 to-transparent text-marth-red rounded-full text-xs sm:text-sm font-bold mb-3 sm:mb-4 border border-marth-red/20">FROM THE WELFARE OFFICE</span>
+                    <div class="w-16 sm:w-20 lg:w-24 h-1 bg-gradient-to-r from-marth-red to-transparent mx-auto"></div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
+                    <div class="relative px-4 sm:px-0">
+                        <div class="absolute -top-4 sm:-top-6 -left-4 sm:-left-6 w-16 sm:w-20 lg:w-32 h-16 sm:h-20 lg:h-32 bg-marth-red/10 rounded-full blur-2xl"></div>
+                        <div class="absolute -bottom-4 sm:-bottom-6 -right-4 sm:-right-6 w-16 sm:w-20 lg:w-32 h-16 sm:h-20 lg:h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
+                        
+                        <div class="relative z-10 group">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-marth-red/20 to-transparent rounded-2xl sm:rounded-3xl transform group-hover:scale-105 transition duration-500"></div>
+                            <div class="stakeholder-image-frame">
+                                <img src="welfare.jpeg" alt="welfare">
+                            </div>
+                            
+                            <div class="absolute -bottom-2 sm:-bottom-4 -right-2 sm:-right-4 bg-gradient-to-r from-marth-red to-red-500 text-white px-3 sm:px-6 lg:px-8 py-1.5 sm:py-2 lg:py-4 rounded-full shadow-2xl transform hover:scale-110 transition">
+                                <span class="font-bold text-xs sm:text-sm lg:text-lg">Welfare & Security</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="director-quote relative px-4 sm:px-0">
+                        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-1 sm:mb-2">Alanyo Paska Janet</h3>
+                        <p class="text-marth-red font-semibold mb-4 sm:mb-6 lg:mb-8 text-base sm:text-lg lg:text-xl border-b border-gray-200 pb-2 sm:pb-4 inline-block">The Welfare and Security Representative</p>
+                        
+                        <div class="space-y-3 sm:space-y-4 lg:space-y-6 text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed">
+                            <p class="font-medium text-gray-800">
+                                Dear Families,
+                            </p>
+                            <p>
+At Marthville Kindergarten School, your child's safety and well‑being are our top priority. We provide a caring, secure environment where children can learn, play, and thrive. Our team maintains high health standards, safe learning and play spaces, and clear drop‑off and pick‑up procedures to keep every child protected.
+We believe in strong partnerships with families, and we welcome parents to reach out with any concerns. Together, we build a joyful, safe community for all our children.
+                            </p>
+                        </div>
+                        
+                        <div class="mt-6 sm:mt-8 lg:mt-10 pt-4 sm:pt-6 border-t border-gray-200 bg-gradient-to-r from-gray-50 to-transparent p-4 sm:p-6 rounded-xl sm:rounded-2xl">
+                            <p class="font-serif text-gray-700 mb-2 sm:mb-4 text-sm sm:text-base">Yours,</p>
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+                                <div>
+                                    <p class="text-lg sm:text-xl lg:text-2xl font-bold text-marth-red">Alanyo Paska Janet</p>
+                                    <p class="text-xs sm:text-sm text-gray-500">Welfare and Security Representative</p>
+                                </div>
+                                <div class="text-left sm:text-right">
+                                    <div class="flex space-x-1 mt-1">
+                                        <span class="w-6 sm:w-8 h-1 bg-marth-red rounded-full"></span>
+                                        <span class="w-6 sm:w-8 h-1 bg-marth-red/50 rounded-full"></span>
+                                        <span class="w-6 sm:w-8 h-1 bg-marth-red/30 rounded-full"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ACADEMIC AFFAIRS SECTION -->
+            <div class="mt-20">
+                <div class="text-center mb-10 sm:mb-12 lg:mb-16">
+                    <span class="inline-block px-4 sm:px-6 py-1.5 sm:py-2 bg-gradient-to-r from-marth-red/10 to-transparent text-marth-red rounded-full text-xs sm:text-sm font-bold mb-3 sm:mb-4 border border-marth-red/20">FROM ACADEMIC AFFAIRS OFFICE</span>
+                    <div class="w-16 sm:w-20 lg:w-24 h-1 bg-gradient-to-r from-marth-red to-transparent mx-auto"></div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
+                    <div class="relative px-4 sm:px-0">
+                        <div class="absolute -top-4 sm:-top-6 -left-4 sm:-left-6 w-16 sm:w-20 lg:w-32 h-16 sm:h-20 lg:h-32 bg-marth-red/10 rounded-full blur-2xl"></div>
+                        <div class="absolute -bottom-4 sm:-bottom-6 -right-4 sm:-right-6 w-16 sm:w-20 lg:w-32 h-16 sm:h-20 lg:h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
+                        
+                        <div class="relative z-10 group">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-marth-red/20 to-transparent rounded-2xl sm:rounded-3xl transform group-hover:scale-105 transition duration-500"></div>
+                            <div class="stakeholder-image-frame">
+                                <img src="affairs.jpeg" alt="affairs">
+                            </div>
+                            
+                            <div class="absolute -bottom-2 sm:-bottom-4 -right-2 sm:-right-4 bg-gradient-to-r from-marth-red to-red-500 text-white px-3 sm:px-6 lg:px-8 py-1.5 sm:py-2 lg:py-4 rounded-full shadow-2xl transform hover:scale-110 transition">
+                                <span class="font-bold text-xs sm:text-sm lg:text-lg">Academic Affairs</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="director-quote relative px-4 sm:px-0">
+                        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-1 sm:mb-2">Ms. Aluburwot Janneth</h3>
+                        <p class="text-marth-red font-semibold mb-4 sm:mb-6 lg:mb-8 text-base sm:text-lg lg:text-xl border-b border-gray-200 pb-2 sm:pb-4 inline-block">Academic Affairs Representative</p>
+                        
+                        <div class="space-y-3 sm:space-y-4 lg:space-y-6 text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed">
+                            <p class="font-medium text-gray-800">
+                                Dear Families,
+                            </p>
+                            <p>
+I'm excited to partner with you to boost literacy and academic success at Marthville Kindergarten School! I'm here to support teachers with resources, mentorship, and guidance — like a jaguar empowering its cubs. Together, let's give learners a strong foundation that will carry them confidently into the future.
+Our classrooms are places of wonder, where play and exploration spark creativity, build confidence, and nurture kindness. With the dedication of our teachers and the support of our families, we create a community where children feel safe, celebrated, and inspired.
+                            </p>
+                        </div>
+                        
+                        <div class="mt-6 sm:mt-8 lg:mt-10 pt-4 sm:pt-6 border-t border-gray-200 bg-gradient-to-r from-gray-50 to-transparent p-4 sm:p-6 rounded-xl sm:rounded-2xl">
+                            <p class="font-serif text-gray-700 mb-2 sm:mb-4 text-sm sm:text-base">Yours,</p>
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+                                <div>
+                                    <p class="text-lg sm:text-xl lg:text-2xl font-bold text-marth-red">Ms. Aluburwot Janneth</p>
+                                    <p class="text-xs sm:text-sm text-gray-500">Academic Affairs Representative</p>
+                                </div>
+                                <div class="text-left sm:text-right">
+                                    <div class="flex space-x-1 mt-1">
+                                        <span class="w-6 sm:w-8 h-1 bg-marth-red rounded-full"></span>
+                                        <span class="w-6 sm:w-8 h-1 bg-marth-red/50 rounded-full"></span>
+                                        <span class="w-6 sm:w-8 h-1 bg-marth-red/30 rounded-full"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FINANCE SECTION -->
+            <div class="mt-20">
+                <div class="text-center mb-10 sm:mb-12 lg:mb-16">
+                    <span class="inline-block px-4 sm:px-6 py-1.5 sm:py-2 bg-gradient-to-r from-marth-red/10 to-transparent text-marth-red rounded-full text-xs sm:text-sm font-bold mb-3 sm:mb-4 border border-marth-red/20">FROM FINANCE DEPARTMENT</span>
+                    <div class="w-16 sm:w-20 lg:w-24 h-1 bg-gradient-to-r from-marth-red to-transparent mx-auto"></div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
+                    <div class="relative px-4 sm:px-0">
+                        <div class="absolute -top-4 sm:-top-6 -left-4 sm:-left-6 w-16 sm:w-20 lg:w-32 h-16 sm:h-20 lg:h-32 bg-marth-red/10 rounded-full blur-2xl"></div>
+                        <div class="absolute -bottom-4 sm:-bottom-6 -right-4 sm:-right-6 w-16 sm:w-20 lg:w-32 h-16 sm:h-20 lg:h-32 bg-blue-500/10 rounded-full blur-2xl"></div>
+                        
+                        <div class="relative z-10 group">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-marth-red/20 to-transparent rounded-2xl sm:rounded-3xl transform group-hover:scale-105 transition duration-500"></div>
+                            <div class="stakeholder-image-frame">
+                                <img src="finance.jpeg" alt="finance">
+                            </div>
+                            
+                            <div class="absolute -bottom-2 sm:-bottom-4 -right-2 sm:-right-4 bg-gradient-to-r from-marth-red to-red-500 text-white px-3 sm:px-6 lg:px-8 py-1.5 sm:py-2 lg:py-4 rounded-full shadow-2xl transform hover:scale-110 transition">
+                                <span class="font-bold text-xs sm:text-sm lg:text-lg">Finance</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="director-quote relative px-4 sm:px-0">
+                        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-1 sm:mb-2">Ms. Awor Irene Peace</h3>
+                        <p class="text-marth-red font-semibold mb-4 sm:mb-6 lg:mb-8 text-base sm:text-lg lg:text-xl border-b border-gray-200 pb-2 sm:pb-4 inline-block">Finance & Administration Department</p>
+                        
+                        <div class="space-y-3 sm:space-y-4 lg:space-y-6 text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed">
+                            <p class="font-medium text-gray-800">
+                                Dear Families,
+                            </p>
+                            <p>
+Salutations from the Finance & Administration department at Marthville Kindergarten School.
+
+We strive to achieve financial independence and transparency using a dedicated team that consistently employ tools of financial management practice in order to achieve informed reporting and decision making.
+
+Special appreciation to all the stakeholders;
+
+The parents, for investing in education of the future leaders of our country (our dear pupils).
+
+The staff & management and board of the school.
+
+We look forward to great success ahead.
+                            </p>
+                        </div>
+                        
+                        <div class="mt-6 sm:mt-8 lg:mt-10 pt-4 sm:pt-6 border-t border-gray-200 bg-gradient-to-r from-gray-50 to-transparent p-4 sm:p-6 rounded-xl sm:rounded-2xl">
+                            <p class="font-serif text-gray-700 mb-2 sm:mb-4 text-sm sm:text-base">Yours,</p>
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+                                <div>
+                                    <p class="text-lg sm:text-xl lg:text-2xl font-bold text-marth-red">Ms. Awor Irene Peace</p>
+                                    <p class="text-xs sm:text-sm text-gray-500">Finance & Administration Department</p>
+                                </div>
+                                <div class="text-left sm:text-right">
+                                    <div class="flex space-x-1 mt-1">
+                                        <span class="w-6 sm:w-8 h-1 bg-marth-red rounded-full"></span>
+                                        <span class="w-6 sm:w-8 h-1 bg-marth-red/50 rounded-full"></span>
+                                        <span class="w-6 sm:w-8 h-1 bg-marth-red/30 rounded-full"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction Section with card styling -->
+    <section class="py-16 sm:py-20 bg-gradient-to-br from-gray-50 to-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 shadow-2xl border border-gray-100 relative overflow-hidden group hover:shadow-3xl transition">
+                <div class="absolute top-0 right-0 w-32 sm:w-40 h-32 sm:h-40 bg-gradient-to-bl from-marth-red/10 to-transparent rounded-full transform translate-x-16 sm:translate-x-20 -translate-y-16 sm:-translate-y-20 group-hover:scale-150 transition duration-700"></div>
+                
+                <div class="flex items-center space-x-3 sm:space-x-4 mb-4 sm:mb-6 lg:mb-8">
+                    <div class="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-marth-red to-red-400 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg transform rotate-3 group-hover:rotate-6 transition">
+                        <svg class="w-6 sm:w-8 h-6 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <span class="text-2xs sm:text-xs uppercase tracking-widest text-marth-red font-bold">Our Promise</span>
+                </div>
+                
+                <p class="text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed">
+                 At Marthville, our promise is to create a loving, safe, and nurturing environment where every child is valued as a unique gift from God. We work closely with parents to support each child's growth emotionally, socially, and academically, while encouraging curiosity, kindness, and confidence. Through faith, care, and excellent early childhood practices, we aim to build a community where every child feels happy, safe, inspired to learn, and proud to belong.
+                </p>
+                
+                <div class="mt-4 sm:mt-6 lg:mt-8 flex space-x-2">
+                    <span class="w-8 sm:w-12 h-1 bg-marth-red rounded-full"></span>
+                    <span class="w-8 sm:w-12 h-1 bg-marth-red/50 rounded-full"></span>
+                    <span class="w-8 sm:w-12 h-1 bg-marth-red/30 rounded-full"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision, Mission, Motto with glass morphism -->
+    <section class="py-16 sm:py-20 lg:py-24 bg-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ef4444" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 relative">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+                <!-- Vision -->
+                <div class="group relative bg-white/70 backdrop-blur-lg rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl border border-white/50 transform hover:-translate-y-2 transition duration-300">
+                    <div class="absolute -top-4 -right-4 w-16 sm:w-20 h-16 sm:h-20 bg-gradient-to-br from-marth-red/20 to-transparent rounded-full blur-2xl"></div>
+                    <div class="w-14 sm:w-20 h-14 sm:h-20 bg-gradient-to-br from-marth-red to-red-400 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 transform -rotate-6 group-hover:rotate-0 transition shadow-lg">
+                        <svg class="w-7 sm:w-10 h-7 sm:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-4">Our Vision</h3>
+                    <p class="text-sm sm:text-base text-gray-600 leading-relaxed">To nurture young minds to become big thinkers, creative explorers and compassionate future leaders in our communities.</p>
+                </div>
+
+                <!-- Mission -->
+                <div class="group relative bg-white/70 backdrop-blur-lg rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl border border-white/50 transform hover:-translate-y-2 transition duration-300">
+                    <div class="absolute -top-4 -right-4 w-16 sm:w-20 h-16 sm:h-20 bg-gradient-to-br from-marth-red/20 to-transparent rounded-full blur-2xl"></div>
+                    <div class="w-14 sm:w-20 h-14 sm:h-20 bg-gradient-to-br from-marth-red to-red-400 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 transform rotate-6 group-hover:rotate-0 transition shadow-lg">
+                        <svg class="w-7 sm:w-10 h-7 sm:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-4">Our Mission</h3>
+                    <p class="text-sm sm:text-base text-gray-600 leading-relaxed">We are dedicated to delivering high-quality early childhood education that sparks curiosity, creativity and a love of learning while promoting the well-being and individuality of each child.</p>
+                </div>
+
+                <!-- Motto -->
+              <div class="group relative bg-white/70 backdrop-blur-lg rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl border border-white/50 transform hover:-translate-y-2 transition duration-300">
+                    <div class="absolute -top-4 -right-4 w-16 sm:w-20 h-16 sm:h-20 bg-gradient-to-br from-marth-red/20 to-transparent rounded-full blur-2xl"></div>
+                    <div class="w-14 sm:w-20 h-14 sm:h-20 bg-gradient-to-br from-marth-red to-red-400 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 transform rotate-6 group-hover:rotate-0 transition shadow-lg">
+                        <svg class="w-7 sm:w-10 h-7 sm:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-4">Our Motto</h3>
+                    <p class="text-sm sm:text-base text-gray-600 leading-relaxed"><b>"Small Steps, Big Dreams" </b><p>means Marthville believes every child can achieve great things through steady growth, support, and encouragement.</p></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Timeline with enhanced design -->
+ <section class="py-16 sm:py-20 lg:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-10 sm:mb-12 lg:mb-16">
+            <span class="inline-block px-4 sm:px-6 py-1.5 sm:py-2 bg-gradient-to-r from-marth-red/10 to-transparent text-marth-red rounded-full text-xs sm:text-sm font-bold mb-3 sm:mb-4 border border-marth-red/20">OUR JOURNEY</span>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 sm:mb-4">The Marthville <span class="gradient-text">Story</span></h2>
+            <p class="text-sm sm:text-base lg:text-lg text-gray-500 max-w-2xl mx-auto px-4">A dream that became reality in 2026. Follow our journey from vision to vibrant community.</p>
+        </div>
+
+        <div class="space-y-4 sm:space-y-6 lg:space-y-8">
+    <!-- Timeline Item 0 -->
+    <div class="relative pl-6 sm:pl-8 md:pl-0 md:flex md:items-center md:space-x-8 group">
+        <div class="timeline-bareprint hidden md:block transition group-hover:scale-150">
+            <img src="inspiration.png" alt="Footprint icon" class="w-10 h-10 object-contain opacity-80 group-hover:opacity-100 transition">
+        </div>
+        <div class="md:w-1/3 md:text-right">
+            <span class="text-xl sm:text-2xl lg:text-3xl font-bold text-marth-red opacity-80 group-hover:opacity-100 transition">The Inspiration</span>
+        </div>
+        <div class="md:w-2/3 mt-2 sm:mt-3 md:mt-0">
+            <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg sm:shadow-xl border border-gray-100 transform group-hover:-translate-y-1 transition group-hover:shadow-2xl">
+                <h3 class="text-base sm:text-lg lg:text-2xl font-bold text-gray-900 mb-1 sm:mb-2 lg:mb-3">How it all began!</h3>
+                <p class="text-xs sm:text-sm lg:text-base text-gray-600 leading-relaxed">
+                    Marthville was named in honor of the director's late mother, Mrs. Lalobo Martha Auma, whose life was marked by extraordinary love, warmth, and generosity. She welcomed everyone like family and taught values of faith, empathy, inclusiveness, and kindness. The name combines "Marth" from Martha and "Ville" to represent the loving village she created. Marthville stands as a living legacy of her heart, values, and the sense of belonging she gave to others.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Timeline Item 1 -->
+    <div class="relative pl-6 sm:pl-8 md:pl-0 md:flex md:items-center md:space-x-8 group">
+        <div class="timeline-bareprint hidden md:block transition group-hover:scale-150">
+            <img src="early2025.png" alt="Footprint icon" class="w-10 h-10 object-contain opacity-80 group-hover:opacity-100 transition">
+        </div>
+        <div class="md:w-1/3 md:text-right">
+            <span class="text-xl sm:text-2xl lg:text-3xl font-bold text-marth-red opacity-80 group-hover:opacity-100 transition">Early 2025</span>
+        </div>
+        <div class="md:w-2/3 mt-2 sm:mt-3 md:mt-0">
+            <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg sm:shadow-xl border border-gray-100 transform group-hover:-translate-y-1 transition group-hover:shadow-2xl">
+                <h3 class="text-base sm:text-lg lg:text-2xl font-bold text-gray-900 mb-1 sm:mb-2 lg:mb-3">The Vision Takes Shape</h3>
+                <p class="text-xs sm:text-sm lg:text-base text-gray-600 leading-relaxed">
+                    Nancy dreamed of creating a kindergarten where every child felt truly at home, safe, loved, and free to explore the joy of learning. With that dream firmly in her heart, the early plans for <strong>Marthville</strong> began to unfold, turning vision into reality.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline Item 2 -->
+    <div class="relative pl-6 sm:pl-8 md:pl-0 md:flex md:items-center md:space-x-8 group">
+        <div class="timeline-bareprint hidden md:block transition group-hover:scale-150">
+            <img src="ahead.png" alt="Footprint icon" class="w-10 h-10 object-contain opacity-80 group-hover:opacity-100 transition">
+        </div>
+        <div class="md:w-1/3 md:text-right">
+            <span class="text-xl sm:text-2xl lg:text-3xl font-bold text-marth-red opacity-80 group-hover:opacity-100 transition">Looking Ahead</span>
+        </div>
+        <div class="md:w-2/3 mt-2 sm:mt-3 md:mt-0">
+            <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg sm:shadow-xl border border-gray-100 transform group-hover:-translate-y-1 transition group-hover:shadow-2xl">
+                <h3 class="text-base sm:text-lg lg:text-2xl font-bold text-gray-900 mb-1 sm:mb-2 lg:mb-3">Building Our Dream</h3>
+                <p class="text-xs sm:text-sm lg:text-base text-gray-600 leading-relaxed">
+                    We set out to bring together passionate and qualified Ugandan educators who shared our dream of nurturing young minds with love, excellence, and integrity. Guided by Nancy's leadership, our founding team united, each member bringing dedication, expertise, and a shared belief in the Marthville vision.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline Item 3 -->
+    <div class="relative pl-6 sm:pl-8 md:pl-0 md:flex md:items-center md:space-x-8 group">
+        <div class="timeline-bareprint hidden md:block transition group-hover:scale-150">
+            <img src="setting.png" alt="Footprint icon" class="w-10 h-10 object-contain opacity-80 group-hover:opacity-100 transition">
+        </div>
+        <div class="md:w-1/3 md:text-right">
+            <span class="text-xl sm:text-2xl lg:text-3xl font-bold text-marth-red opacity-80 group-hover:opacity-100 transition">Setting Up</span>
+        </div>
+        <div class="md:w-2/3 mt-2 sm:mt-3 md:mt-0">
+            <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg sm:shadow-xl border border-gray-100 transform group-hover:-translate-y-1 transition group-hover:shadow-2xl">
+                <h3 class="text-base sm:text-lg lg:text-2xl font-bold text-gray-900 mb-1 sm:mb-2 lg:mb-3">Assembling Our Team</h3>
+                <p class="text-xs sm:text-sm lg:text-base text-gray-600 leading-relaxed">
+                    We began recruiting passionate, qualified Ugandan educators who share our vision for nurturing young minds. Our founding team came together under Nancy's leadership.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline Item 4 -->
+    <div class="relative pl-6 sm:pl-8 md:pl-0 md:flex md:items-center md:space-x-8 group">
+        <div class="timeline-bareprint hidden md:block transition group-hover:scale-150">
+            <img src="curriculum.png" alt="Footprint icon" class="w-10 h-10 object-contain opacity-80 group-hover:opacity-100 transition">
+        </div>
+        <div class="md:w-1/3 md:text-right">
+            <span class="text-xl sm:text-2xl lg:text-3xl font-bold text-marth-red opacity-80 group-hover:opacity-100 transition">Curriculum</span>
+        </div>
+        <div class="md:w-2/3 mt-2 sm:mt-3 md:mt-0">
+            <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg sm:shadow-xl border border-gray-100 transform group-hover:-translate-y-1 transition group-hover:shadow-2xl">
+                <h3 class="text-base sm:text-lg lg:text-2xl font-bold text-gray-900 mb-1 sm:mb-2 lg:mb-3">Curriculum Development</h3>
+                <p class="text-xs sm:text-sm lg:text-base text-gray-600 leading-relaxed">
+                    Our educational team designed a rich, play-based curriculum that blends the best of early childhood research with innovative, child-centered approaches. Every lesson, activity, and learning experience was thoughtfully crafted to nurture curiosity, creativity, and a lifelong love for learning.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline Item 6 -->
+    <div class="relative pl-6 sm:pl-8 md:pl-0 md:flex md:items-center md:space-x-8 group">
+        <div class="timeline-bareprint hidden md:block transition group-hover:scale-150">
+            <img src="growing.png" alt="Footprint icon" class="w-10 h-10 object-contain opacity-80 group-hover:opacity-100 transition">
+        </div>
+        <div class="md:w-1/3 md:text-right">
+            <span class="text-xl sm:text-2xl lg:text-3xl font-bold text-marth-red opacity-80 group-hover:opacity-100 transition">Today</span>
+        </div>
+        <div class="md:w-2/3 mt-2 sm:mt-3 md:mt-0">
+            <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg sm:shadow-xl border border-gray-100 transform group-hover:-translate-y-1 transition group-hover:shadow-2xl">
+                <h3 class="text-base sm:text-lg lg:text-2xl font-bold text-gray-900 mb-1 sm:mb-2 lg:mb-3">Growing Together in Gulu</h3>
+                <p class="text-xs sm:text-sm lg:text-base text-gray-600 leading-relaxed">
+                    Today, Marthville continues to flourish as a nurturing home for early childhood education in Gulu. Our community grows stronger each day as we stay true to the values of love, kindness, and excellence that inspired this journey. Every child who walks through our doors leaves their own barefoot print on our hearts.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</section>
+
+<style>
+.timeline-bareprint {
+    position: absolute;
+    left: -20px;
+    font-size: 2rem;
+    line-height: 1;
+    transform: rotate(10deg);
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.group:hover .timeline-bareprint {
+    opacity: 1;
+    transform: rotate(0deg) scale(1.2);
+}
+
+/* For mobile layout, show bareprint on left */
+@media (max-width: 768px) {
+    .timeline-bareprint {
+        display: block !important;
+        left: -10px;
+        font-size: 1.5rem;
+    }
+}
+</style>
+
+    <!-- Core Values with icon grid -->
+    <section class="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-10 sm:mb-12 lg:mb-16">
+                <span class="inline-block px-4 sm:px-6 py-1.5 sm:py-2 bg-gradient-to-r from-marth-red/10 to-transparent text-marth-red rounded-full text-xs sm:text-sm font-bold mb-3 sm:mb-4 border border-marth-red/20">WHAT WE BELIEVE</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 sm:mb-4">Our Core <span class="gradient-text">Values</span></h2>
+                <p class="text-sm sm:text-base lg:text-lg text-gray-500 max-w-2xl mx-auto px-4">These principles guide everything we do at Marthville from day one.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <!-- Value 1: God Fearing -->
+                <div class="value-card bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-lg border border-gray-100 flex items-start space-x-3 sm:space-x-4">
+                    <div class="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-marth-red/10 to-transparent rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 sm:w-8 h-6 sm:h-8 text-marth-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-1 sm:mb-2">God Fearing</h3>
+                        <p class="text-xs sm:text-sm text-gray-600">We put God first in all that we do.</p>
+                    </div>
+                </div>
+
+                <!-- Value 2: Empathy -->
+                <div class="value-card bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-lg border border-gray-100 flex items-start space-x-3 sm:space-x-4">
+                    <div class="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-marth-red/10 to-transparent rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 sm:w-8 h-6 sm:h-8 text-marth-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-1 sm:mb-2">Empathy</h3>
+                        <p class="text-xs sm:text-sm text-gray-600">We nurture kindness, compassion and understanding towards others.</p>
+                    </div>
+                </div>
+
+                <!-- Value 3: Inclusivity -->
+                <div class="value-card bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-lg border border-gray-100 flex items-start space-x-3 sm:space-x-4">
+                    <div class="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-marth-red/10 to-transparent rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 sm:w-8 h-6 sm:h-8 text-marth-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-1 sm:mb-2">Inclusivity</h3>
+                        <p class="text-xs sm:text-sm text-gray-600">We embrace diversity and ensure every child feels welcomed and valued.</p>
+                    </div>
+                </div>
+
+                <!-- Value 4: Playfulness -->
+                <div class="value-card bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-lg border border-gray-100 flex items-start space-x-3 sm:space-x-4">
+                    <div class="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-marth-red/10 to-transparent rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 sm:w-8 h-6 sm:h-8 text-marth-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-1 sm:mb-2">Playfulness</h3>
+                        <p class="text-xs sm:text-sm text-gray-600">We recognize the importance of play in learning and development.</p>
+                    </div>
+                </div>
+
+                <!-- Value 5: Excellence -->
+                <div class="value-card bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-lg border border-gray-100 flex items-start space-x-3 sm:space-x-4">
+                    <div class="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-marth-red/10 to-transparent rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 sm:w-8 h-6 sm:h-8 text-marth-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2v16z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-1 sm:mb-2">Excellence</h3>
+                        <p class="text-xs sm:text-sm text-gray-600">We strive for high quality education and continuous innovation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes Section with animated cards -->
+    <section id="classes" class="py-16 sm:py-20 lg:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-10 sm:mb-12 lg:mb-16">
+                <span class="inline-block px-4 sm:px-6 py-1.5 sm:py-2 bg-gradient-to-r from-marth-red/10 to-transparent text-marth-red rounded-full text-xs sm:text-sm font-bold mb-3 sm:mb-4 border border-marth-red/20">OUR CLASSES</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 sm:mb-4">Meet Our Learning <span class="gradient-text">Families</span></h2>
+                <p class="text-sm sm:text-base lg:text-lg text-gray-500 max-w-2xl mx-auto px-4">We run four classes with unique names that spark imagination.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <!-- Playful Penguins -->
+                <div class="class-card bg-gradient-to-br from-blue-50 to-white rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl border border-gray-100 text-center group">
+                    <div class="w-16 sm:w-20 lg:w-24 h-16 sm:h-20 lg:h-24 bg-gradient-to-br from-blue-400 to-blue-500 rounded-xl sm:rounded-2xl lg:rounded-3xl flex items-center justify-center mx-auto mb-3 sm:mb-4 lg:mb-6 transform group-hover:rotate-6 transition shadow-lg">
+                        <span class="text-3xl sm:text-4xl lg:text-5xl">🐧</span>
+                    </div>
+                    <h3 class="text-base sm:text-lg lg:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">Playful Penguins</h3>
+                    <p class="text-2xs sm:text-xs lg:text-sm text-marth-red font-semibold mb-1 sm:mb-2 lg:mb-3">DayCare</p>
+                    <p class="text-2xs sm:text-xs lg:text-sm text-gray-500">Playful Penguins is a warm and nurturing daycare designed for babies and toddlers. In a safe, loving environment, children enjoy gentle routines, sensory play, music, and movement that support early development. Our caregivers provide constant care and encouragement, helping little ones build emotional security, social skills, curiosity, and a joyful foundation for lifelong learning.</p>
+                    <div class="mt-2 sm:mt-3 lg:mt-4 w-8 sm:w-10 lg:w-12 h-1 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full mx-auto"></div>
+                </div>
+
+                <!-- Happy Dolphins -->
+                <div class="class-card bg-gradient-to-br from-teal-50 to-white rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl border border-gray-100 text-center group">
+                    <div class="w-16 sm:w-20 lg:w-24 h-16 sm:h-20 lg:h-24 bg-gradient-to-br from-teal-400 to-teal-500 rounded-xl sm:rounded-2xl lg:rounded-3xl flex items-center justify-center mx-auto mb-3 sm:mb-4 lg:mb-6 transform group-hover:rotate-6 transition shadow-lg">
+                        <span class="text-3xl sm:text-4xl lg:text-5xl">🐬</span>
+                    </div>
+                    <h3 class="text-base sm:text-lg lg:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">Happy Dolphins</h3>
+                    <p class="text-2xs sm:text-xs lg:text-sm text-marth-red font-semibold mb-1 sm:mb-2 lg:mb-3">Kindergarten 1</p>
+                    <p class="text-2xs sm:text-xs lg:text-sm text-gray-500">Happy Dolphins is a playful kindergarten class where children explore, imagine, and develop early literacy, numeracy, and creative skills through engaging activities. With storytelling, art, music, outdoor play, and teamwork, learners build confidence, communication, and independence in a joyful environment that encourages curiosity and a lasting love for learning.</p>
+                    <div class="mt-2 sm:mt-3 lg:mt-4 w-8 sm:w-10 lg:w-12 h-1 bg-gradient-to-r from-teal-400 to-teal-500 rounded-full mx-auto"></div>
+                </div>
+
+                <!-- Curious Cubs -->
+                <div class="class-card bg-gradient-to-br from-amber-50 to-white rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl border border-gray-100 text-center group">
+                    <div class="w-16 sm:w-20 lg:w-24 h-16 sm:h-20 lg:h-24 bg-gradient-to-br from-amber-400 to-amber-500 rounded-xl sm:rounded-2xl lg:rounded-3xl flex items-center justify-center mx-auto mb-3 sm:mb-4 lg:mb-6 transform group-hover:rotate-6 transition shadow-lg">
+                        <span class="text-3xl sm:text-4xl lg:text-5xl">🐻</span>
+                    </div>
+                    <h3 class="text-base sm:text-lg lg:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">Curious Cubs</h3>
+                    <p class="text-2xs sm:text-xs lg:text-sm text-marth-red font-semibold mb-1 sm:mb-2 lg:mb-3">Kindergarten 2</p>
+                    <p class="text-2xs sm:text-xs lg:text-sm text-gray-500">Curious Cubs nurtures children's natural curiosity through activities that build early literacy, numeracy, creativity, and problem-solving skills. Through stories, art, experiments, music, and purposeful play, learners explore ideas while developing teamwork, confidence, and independence in a supportive and encouraging environment.</p>
+                    <div class="mt-2 sm:mt-3 lg:mt-4 w-8 sm:w-10 lg:w-12 h-1 bg-gradient-to-r from-amber-400 to-amber-500 rounded-full mx-auto"></div>
+                </div>
+
+                <!-- Clever Foxes -->
+                <div class="class-card bg-gradient-to-br from-red-50 to-white rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl border border-gray-100 text-center group sm:col-span-2 lg:col-span-1">
+                    <div class="w-16 sm:w-20 lg:w-24 h-16 sm:h-20 lg:h-24 bg-gradient-to-br from-marth-red to-red-500 rounded-xl sm:rounded-2xl lg:rounded-3xl flex items-center justify-center mx-auto mb-3 sm:mb-4 lg:mb-6 transform group-hover:rotate-6 transition shadow-lg">
+                        <span class="text-3xl sm:text-4xl lg:text-5xl">🦊</span>
+                    </div>
+                    <h3 class="text-base sm:text-lg lg:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">Clever Foxes</h3>
+                    <p class="text-2xs sm:text-xs lg:text-sm text-marth-red font-semibold mb-1 sm:mb-2 lg:mb-3">Kindergarten 3</p>
+                    <p class="text-2xs sm:text-xs lg:text-sm text-gray-500">Clever Foxes prepares children for the transition to primary school by strengthening literacy, numeracy, critical thinking, and communication skills. Through guided reading, early writing, hands-on learning, and collaborative activities, learners build confidence, independence, and problem-solving abilities in a supportive and engaging environment.</p>
+                    <div class="mt-2 sm:mt-3 lg:mt-4 w-8 sm:w-10 lg:w-12 h-1 bg-gradient-to-r from-marth-red to-red-500 rounded-full mx-auto"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academics & Health with modern cards -->
+    <section class="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+                <!-- Academics -->
+                <div class="bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-2xl border border-gray-100 transform hover:-translate-y-2 transition">
+                    <div class="flex items-center space-x-3 sm:space-x-4 mb-4 sm:mb-6 lg:mb-8">
+                        <div class="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-marth-red to-red-400 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg">
+                            <svg class="w-6 sm:w-8 h-6 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg sm:text-xl lg:text-3xl font-bold text-gray-900">Academic Excellence</h3>
+                    </div>
+                    
+                    <div class="space-y-2 sm:space-y-3 lg:space-y-4">
+                        <div class="flex items-start space-x-2 sm:space-x-3 p-2 sm:p-3 bg-gray-50 rounded-lg sm:rounded-xl hover:bg-marth-red/5 transition">
+                            <svg class="w-4 sm:w-6 h-4 sm:h-6 text-marth-red mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="text-xs sm:text-sm lg:text-base text-gray-700">Ministry of Education approved curriculum</span>
+                        </div>
+                        <div class="flex items-start space-x-2 sm:space-x-3 p-2 sm:p-3 bg-gray-50 rounded-lg sm:rounded-xl hover:bg-marth-red/5 transition">
+                            <svg class="w-4 sm:w-6 h-4 sm:h-6 text-marth-red mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="text-xs sm:text-sm lg:text-base text-gray-700">Jolly Phonics for reading and writing</span>
+                        </div>
+                        <div class="flex items-start space-x-2 sm:space-x-3 p-2 sm:p-3 bg-gray-50 rounded-lg sm:rounded-xl hover:bg-marth-red/5 transition">
+                            <svg class="w-4 sm:w-6 h-4 sm:h-6 text-marth-red mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="text-xs sm:text-sm lg:text-base text-gray-700">Child-centered, play-based approaches</span>
+                        </div>
+                        <div class="flex items-start space-x-2 sm:space-x-3 p-2 sm:p-3 bg-gray-50 rounded-lg sm:rounded-xl hover:bg-marth-red/5 transition">
+                            <svg class="w-4 sm:w-6 h-4 sm:h-6 text-marth-red mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="text-xs sm:text-sm lg:text-base text-gray-700">Physical education every Tuesday & Thursday</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Health & Safety -->
+                <div class="bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-2xl border border-gray-100 transform hover:-translate-y-2 transition">
+                    <div class="flex items-center space-x-3 sm:space-x-4 mb-4 sm:mb-6 lg:mb-8">
+                        <div class="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-green-500 to-green-400 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg">
+                            <svg class="w-6 sm:w-8 h-6 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg sm:text-xl lg:text-3xl font-bold text-gray-900">Health & Safety</h3>
+                    </div>
+                    
+                    <div class="space-y-2 sm:space-y-3 lg:space-y-4">
+                        <div class="flex items-start space-x-2 sm:space-x-3 p-2 sm:p-3 bg-gray-50 rounded-lg sm:rounded-xl hover:bg-green-500/5 transition">
+                            <svg class="w-4 sm:w-6 h-4 sm:h-6 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-xs sm:text-sm lg:text-base text-gray-700">First aid always available on premises</span>
+                        </div>
+                        <div class="flex items-start space-x-2 sm:space-x-3 p-2 sm:p-3 bg-gray-50 rounded-lg sm:rounded-xl hover:bg-green-500/5 transition">
+                            <svg class="w-4 sm:w-6 h-4 sm:h-6 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-xs sm:text-sm lg:text-base text-gray-700">Emergency contacts to nearest health unit</span>
+                        </div>
+                        <div class="flex items-start space-x-2 sm:space-x-3 p-2 sm:p-3 bg-gray-50 rounded-lg sm:rounded-xl hover:bg-green-500/5 transition">
+                            <svg class="w-4 sm:w-6 h-4 sm:h-6 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-xs sm:text-sm lg:text-base text-gray-700">Well-fenced premises with gatekeeper</span>
+                        </div>
+                        <div class="flex items-start space-x-2 sm:space-x-3 p-2 sm:p-3 bg-gray-50 rounded-lg sm:rounded-xl hover:bg-green-500/5 transition">
+                            <svg class="w-4 sm:w-6 h-4 sm:h-6 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-xs sm:text-sm lg:text-base text-gray-700">Gate pass system for child pickup</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet Our Team with social overlay -->
+    <section class="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-10 sm:mb-12 lg:mb-16">
+                <span class="inline-block px-4 sm:px-6 py-1.5 sm:py-2 bg-gradient-to-r from-marth-red/10 to-transparent text-marth-red rounded-full text-xs sm:text-sm font-bold mb-3 sm:mb-4 border border-marth-red/20">OUR FOUNDING FAMILY</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 sm:mb-4">Meet Our <span class="gradient-text">Team</span></h2>
+                <p class="text-sm sm:text-base lg:text-lg text-gray-500 max-w-2xl mx-auto px-4">Passionate educators who came together to build something special at Marthville.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+                <!-- Nancy Abalo Opiyo -->
+                <div class="team-card bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-xl overflow-hidden group">
+                    <div class="relative overflow-hidden h-48 sm:h-64 lg:h-80">
+                        <img src="marthvilledirector.png" alt="Nancy Abalo Opiyo" class="w-full h-full object-cover">
+                        <div class="social-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end justify-center pb-4 sm:pb-6">
+                            <div class="flex space-x-2 sm:space-x-3">
+                                <span class="w-6 sm:w-8 lg:w-10 h-6 sm:h-8 lg:h-10 bg-white rounded-full flex items-center justify-center text-marth-red font-bold text-xs sm:text-sm">📞</span>
+                                <span class="w-6 sm:w-8 lg:w-10 h-6 sm:h-8 lg:h-10 bg-white rounded-full flex items-center justify-center text-marth-red font-bold text-xs sm:text-sm">✉️</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 sm:p-4 lg:p-6 text-center">
+                        <h3 class="text-sm sm:text-base lg:text-xl font-bold text-gray-900">Nancy Abalo Opiyo</h3>
+                        <p class="text-2xs sm:text-xs lg:text-sm text-marth-red font-semibold">Founder & Director</p>
+                    </div>
+                </div>
+
+                <!-- Academic affairs representative -->
+                <div class="team-card bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-xl overflow-hidden group">
+                    <div class="relative overflow-hidden h-48 sm:h-64 lg:h-80">
+                        <img src="affairs.jpeg" alt="Academic Affairs Representative" class="w-full h-full object-cover">
+                        <div class="social-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end justify-center pb-4 sm:pb-6">
+                            <div class="flex space-x-2 sm:space-x-3">
+                                <span class="w-6 sm:w-8 lg:w-10 h-6 sm:h-8 lg:h-10 bg-white rounded-full flex items-center justify-center text-marth-red font-bold text-xs sm:text-sm">📞</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 sm:p-4 lg:p-6 text-center">
+                        <h3 class="text-sm sm:text-base lg:text-xl font-bold text-gray-900">Ms. Aluburwot Janneth</h3>
+                        <p class="text-2xs sm:text-xs lg:text-sm text-marth-red font-semibold">Academic Affairs Representative</p>
+                    </div>
+                </div>
+
+                <div class="team-card bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-xl overflow-hidden group">
+                    <div class="relative overflow-hidden h-48 sm:h-64 lg:h-80">
+                        <img src="welfare.jpeg" alt="Welfare Representative" class="w-full h-full object-cover">
+                        <div class="social-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end justify-center pb-4 sm:pb-6">
+                            <div class="flex space-x-2 sm:space-x-3">
+                                <span class="w-6 sm:w-8 lg:w-10 h-6 sm:h-8 lg:h-10 bg-white rounded-full flex items-center justify-center text-marth-red font-bold text-xs sm:text-sm">📞</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 sm:p-4 lg:p-6 text-center">
+                        <h3 class="text-sm sm:text-base lg:text-xl font-bold text-gray-900">Ms. Alanyo Paska Janet</h3>
+                        <p class="text-2xs sm:text-xs lg:text-sm text-marth-red font-semibold">Welfare and Security Representative</p>
+                    </div>
+                </div>
+
+                <div class="team-card bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-xl overflow-hidden group">
+                    <div class="relative overflow-hidden h-48 sm:h-64 lg:h-80">
+                        <img src="headteacher.jpeg" alt="Headteacher" class="w-full h-full object-cover">
+                        <div class="social-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end justify-center pb-4 sm:pb-6">
+                            <div class="flex space-x-2 sm:space-x-3">
+                                <span class="w-6 sm:w-8 lg:w-10 h-6 sm:h-8 lg:h-10 bg-white rounded-full flex items-center justify-center text-marth-red font-bold text-xs sm:text-sm">📞</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 sm:p-4 lg:p-6 text-center">
+                        <h3 class="text-sm sm:text-base lg:text-xl font-bold text-gray-900">Mrs. Adong Proscovia Okello</h3>
+                        <p class="text-2xs sm:text-xs lg:text-sm text-marth-red font-semibold">The Headteacher</p>
+                    </div>
+                </div>
+
+                 <div class="team-card bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-xl overflow-hidden group">
+                    <div class="relative overflow-hidden h-48 sm:h-64 lg:h-80">
+                        <img src="chair.jpeg" alt="SMC Chairman" class="w-full h-full object-cover">
+                        <div class="social-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end justify-center pb-4 sm:pb-6">
+                            <div class="flex space-x-2 sm:space-x-3">
+                                <span class="w-6 sm:w-8 lg:w-10 h-6 sm:h-8 lg:h-10 bg-white rounded-full flex items-center justify-center text-marth-red font-bold text-xs sm:text-sm">📞</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 sm:p-4 lg:p-6 text-center">
+                        <h3 class="text-sm sm:text-base lg:text-xl font-bold text-gray-900">Mr. Kilama Erick Obwona</h3>
+                        <p class="text-2xs sm:text-xs lg:text-sm text-marth-red font-semibold">Chairperson, School Management Committee</p>
+                    </div>
+                </div>
+
+                 <div class="team-card bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-xl overflow-hidden group">
+                    <div class="relative overflow-hidden h-48 sm:h-64 lg:h-80">
+                        <img src="community.jpeg" alt="Community Affairs" class="w-full h-full object-cover">
+                        <div class="social-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end justify-center pb-4 sm:pb-6">
+                            <div class="flex space-x-2 sm:space-x-3">
+                                <span class="w-6 sm:w-8 lg:w-10 h-6 sm:h-8 lg:h-10 bg-white rounded-full flex items-center justify-center text-marth-red font-bold text-xs sm:text-sm">📞</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 sm:p-4 lg:p-6 text-center">
+                        <h3 class="text-sm sm:text-base lg:text-xl font-bold text-gray-900">Ms. Christine Okee Loina</h3>
+                        <p class="text-2xs sm:text-xs lg:text-sm text-marth-red font-semibold">Community Affairs</p>
+                    </div>
+                </div>
+
+                <!--Awor-->
+                <div class="team-card bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-xl overflow-hidden group">
+                    <div class="relative overflow-hidden h-48 sm:h-64 lg:h-80">
+                        <img src="finance.jpeg" alt="Finance Representative" class="w-full h-full object-cover">
+                        <div class="social-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end justify-center pb-4 sm:pb-6">
+                            <div class="flex space-x-2 sm:space-x-3">
+                                <span class="w-6 sm:w-8 lg:w-10 h-6 sm:h-8 lg:h-10 bg-white rounded-full flex items-center justify-center text-marth-red font-bold text-xs sm:text-sm">📞</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 sm:p-4 lg:p-6 text-center">
+                        <h3 class="text-sm sm:text-base lg:text-xl font-bold text-gray-900">Ms. Awor Irene Peace</h3>
+                        <p class="text-2xs sm:text-xs lg:text-sm text-marth-red font-semibold">Finance and Resource mobilisation Representative </p>
+                    </div>
+                </div>
+
+ <div class="team-card bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-xl overflow-hidden group">
+                    <div class="relative overflow-hidden h-48 sm:h-64 lg:h-80">
+                        <img src="kipsie.png" alt="Teacher Representative" class="w-full h-full object-cover">
+                        <div class="social-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end justify-center pb-4 sm:pb-6">
+                            <div class="flex space-x-2 sm:space-x-3">
+                                <span class="w-6 sm:w-8 lg:w-10 h-6 sm:h-8 lg:h-10 bg-white rounded-full flex items-center justify-center text-marth-red font-bold text-xs sm:text-sm">📞</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 sm:p-4 lg:p-6 text-center">
+                        <h3 class="text-sm sm:text-base lg:text-xl font-bold text-gray-900">Ms. Adokorach Kipsie</h3>
+                        <p class="text-2xs sm:text-xs lg:text-sm text-marth-red font-semibold">Teacher Representative</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action with gradient -->
+  <section id="contact" class="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-red-700 via-marth-red to-red-500 text-white relative overflow-hidden">
+    <!-- strong dark overlay -->
+    <div class="absolute inset-0 bg-black/25"></div>
+
+    <!-- larger softer background shapes -->
+    <div class="absolute -top-20 -left-20 w-72 h-72 bg-yellow-300/20 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center relative z-10">
+        <!-- badge -->
+        <div class="inline-flex items-center justify-center px-5 py-2 rounded-full bg-yellow-300 text-red-800 font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg mb-5 sm:mb-6">
+            Admissions Open
+        </div>
+
+        <!-- main heading -->
+        <h2 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black mb-4 sm:mb-5 leading-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.35)]">
+            Ready to Join <span class="text-yellow-300">Marthville</span>?
+        </h2>
+
+        <!-- supporting text -->
+        <p class="text-lg sm:text-xl lg:text-2xl text-white font-medium max-w-3xl mx-auto mb-8 sm:mb-10 leading-relaxed">
+            Give your child the beautiful beginning they deserve.
+        </p>
+        
+        <!-- action buttons -->
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-10 sm:mb-12">
+            <a href="tel:0784718182" class="w-full sm:w-auto bg-yellow-300 text-red-800 px-8 py-4 rounded-2xl font-extrabold text-base sm:text-lg shadow-[0_12px_30px_rgba(0,0,0,0.25)] hover:scale-105 transition transform border-2 border-yellow-200">
+                Call Us Today
+            </a>
+
+        </div>
+        
+        <!-- contact details card -->
+        <div class="max-w-3xl mx-auto bg-white text-gray-900 rounded-3xl p-6 sm:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.30)] border-4 border-yellow-300">
+            <p class="text-sm sm:text-base lg:text-lg font-semibold text-gray-700 mb-3">
+                Plot 10 Ogwal Abwang Road, Laroo-Pece Division, Gulu City
+            </p>
+
+            <p class="text-xl sm:text-2xl lg:text-3xl font-black text-marth-red mb-3 leading-snug">
+                0784718182 / 0772428569 / 0792761281
+            </p>
+
+            <p class="text-sm sm:text-base lg:text-lg font-bold text-gray-800">
+                marthvillesch@gmail.com
+            </p>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer with waves -->
+    <footer class="py-8 sm:py-10 lg:py-12 text-center text-gray-400 bg-gray-900 text-white/60 relative">
+        <div class="absolute top-0 left-0 w-full overflow-hidden">
+            <svg class="relative block w-full h-3 sm:h-4 lg:h-6" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="white"></path>
+                <path d="M0,0V15.81C13,21.25,27.93,25.67,44.24,28.45c69.76,11.87,140.45,6,204.3-10.71C325.83,4.17,402.47-5.6,479.56,4c67.34,8.34,132.64,31.67,199.06,38.5,71.68,7.36,142.73-2.32,206.35-24.44C942.45-4.8,1052.9-27.8,1200,19.76V0Z" opacity=".5" fill="white"></path>
+                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,974.52,122.36,1200,52.47V0Z" fill="white"></path>
+            </svg>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10 lg:pt-12">
+            <img src="marthvillebadge.png" alt="Marthville" class="w-10 sm:w-12 lg:w-16 h-10 sm:h-12 lg:h-16 mx-auto mb-2 sm:mb-3 lg:mb-4 opacity-50 grayscale brightness-200">
+            <p class="text-2xs sm:text-xs">&copy; 2026 Marthville Kindergarten School - Gulu City, Uganda. All rights reserved.</p>
+            <p class="text-3xs sm:text-2xs mt-1 sm:mt-2 opacity-50">Plot 10 Ogwal Abwang Road, Laroo-Pece Division, Gulu City</p>
+            
+            <div class="flex justify-center space-x-3 sm:space-x-4 mt-4 sm:mt-6">
+                <span class="w-6 sm:w-8 lg:w-10 h-6 sm:h-8 lg:h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-marth-red transition cursor-pointer text-xs sm:text-sm">📘</span>
+                <span class="w-6 sm:w-8 lg:w-10 h-6 sm:h-8 lg:h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-marth-red transition cursor-pointer text-xs sm:text-sm">📷</span>
+                <span class="w-6 sm:w-8 lg:w-10 h-6 sm:h-8 lg:h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-marth-red transition cursor-pointer text-xs sm:text-sm">🐦</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
